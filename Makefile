@@ -16,3 +16,9 @@ dev:
 migrations:
 	uv run manage.py makemigrations
 	uv run manage.py migrate
+
+collectstatic:
+	uv run python3 manage.py collectstatic --no-input
+
+migrate:
+	uv run python3 manage.py migrate
