@@ -1,6 +1,7 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
+#from django.contrib.messages.views import SuccessMessageMixin
 from task_manager.users.models import User
-from task_manager.users.forms import UserRegistrationForm
+from task_manager.users.forms import UserRegistrationForm, UserUpdateForm
 from django.utils.translation import gettext_lazy as _
 
 
@@ -14,6 +15,17 @@ class UsersIndexView(ListView):
 class UserCreateView(CreateView):
     form_class = UserRegistrationForm
     template_name = 'users/new_user.html'
-#    fields = ['first_name', 'last_name', 'user_name']
     success_url = '/users/'
     message_success = _("The user has been successfully registered")
+
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'users/update.html'
+    success_url = '/users/'
+    message_success = _("The user has been successfully updated")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _('Edit User')
+        return context

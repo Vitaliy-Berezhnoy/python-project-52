@@ -35,7 +35,7 @@
                                     <td>{{ user.created_at|date:"d.m.Y H:i" }}</td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a href="{% url 'users' %}" class="btn btn-outline-primary">
+                                            <a href="{% url 'user_update' user.id %}" class="btn btn-outline-primary">
                                                 <i class="bi bi-pencil"></i> {% trans "Edit" %}
                                             </a>
                                             <a href="{% url 'users' %}" class="btn btn-outline-danger">
