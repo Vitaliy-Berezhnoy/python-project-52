@@ -20,7 +20,9 @@ from django.urls import path, include
 from task_manager import views
 
 urlpatterns = [
-    path('', views.home),
+    path('', views.home, name='home'),
     path('users/', include('task_manager.users.urls')),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
     path('admin/', admin.site.urls),
 ]

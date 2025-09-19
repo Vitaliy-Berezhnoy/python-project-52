@@ -125,8 +125,11 @@ LANGUAGES = [
     ("en", "English"),
 ]
 
-TIME_ZONE = 'UTC'
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
+TIME_ZONE = 'UTC'
 USE_TZ = True
 
 

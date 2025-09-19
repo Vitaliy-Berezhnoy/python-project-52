@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load django_bootstrap5 %}
+
+{% block title %}{% trans "Login" %} - {% trans "Task Manager" %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="h4 mb-0">{% trans "Login" %}</h2>
+            </div>
+
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="username" class="form-label">{% trans "Username" %}</label>
+                        <input type="text" class="form-control" id="username" name="username" 
+                               required placeholder="{% trans 'Enter your username' %}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="form-label">{% trans "Password" %}</label>
+                        <input type="password" class="form-control" id="password" name="password" 
+                               required placeholder="{% trans 'Enter your password' %}">
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-box-arrow-in-right"></i> 
+                            {% trans "Login" %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card-footer text-center">
+                <p class="mb-0">{% trans "Don't have an account?" %} 
+                    <a href="{% url 'user_create' %}" class="text-decoration-none">
+                        {% trans "Register" %}
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -22,3 +22,6 @@ collectstatic:
 
 migrate:
 	uv run python3 manage.py migrate
+
+makemessages:
+	uv run django-admin makemessages -l ru --no-obsolete

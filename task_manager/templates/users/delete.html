@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load django_bootstrap5 %}
+
+{% block title %}{% trans "Delete User" %} - {% trans "Task Manager" %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="h4 mb-0 text-danger">
+                    <i class="bi bi-exclamation-triangle"></i> 
+                    {% trans "Delete User" %}
+                </h2>
+            </div>
+
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-circle"></i>
+                    {% trans "Are you sure you want to delete the user?" %}
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.username }}</h5>
+                        <p class="card-text mb-1">
+                            <strong>{% trans "Full Name" %}:</strong> 
+                            {{ user.first_name }} {{ user.last_name }}
+                        </p>
+                        <p class="card-text mb-0">
+                            <strong>{% trans "Created At" %}:</strong> 
+                            {{ user.created_at|date:"d.m.Y H:i" }}
+                        </p>
+                    </div>
+                </div>
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'users' %}" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-arrow-left"></i> 
+                            {% trans "Cancel" %}
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> 
+                            {% trans "Yes, delete" %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
