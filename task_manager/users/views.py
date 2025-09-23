@@ -14,15 +14,13 @@ class UserPermissionMixin(AccessMixin):
     redirect_url = 'users'
 
     def dispatch(self, request, *args, **kwargs):
-        if not self.has_permission():
+        # noinspection PyUnresolvedReferences
+        if self.request.user != self.get_object():
             messages.error(request, self.permission_message)
             return redirect(self.redirect_url)
         # noinspection PyUnresolvedReferences
         return super().dispatch(request, *args, **kwargs)
 
-    def has_permission(self):
-        # noinspection PyUnresolvedReferences
-        return self.request.user == self.get_object()
 
 class UsersIndexView(ListView):
     model = User  # Модель для отображения
