@@ -27,6 +27,7 @@ class UsersIndexView(ListView):
     template_name = 'users/index.html'  # Шаблон
     context_object_name = 'users'  # Имя переменной в шаблоне
     paginate_by = 10  # Пагинация по 10 элементов
+    ordering = ['id']  # Сортировка по id
 
 class UserCreateView(SuccessMessageMixin, CreateView):
     form_class = UserRegistrationForm
