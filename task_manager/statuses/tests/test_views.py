@@ -18,11 +18,6 @@ class StatusesViewsTest(TestCase):
         )
         self.status = Status.objects.create(name='новый')
 
-#    def test_statuses_list_view_requires_login(self):
-#        """Проверяет, что доступ к списку статусов требует авторизации"""
-#        response = self.client.get(reverse('statuses:statuses'))
-#        self.assertEqual(response.status_code, 302)  # Должен быть редирект на страницу входа
-
     def test_statuses_list_view_authenticated(self):
         """Проверяет, что авторизованный пользователь может видеть список статусов"""
         self.client.login(username='testuser', password=TEST_PASSWORD)
@@ -30,11 +25,6 @@ class StatusesViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)  # Успешный доступ
         self.assertTemplateUsed(response, 'statuses/index.html')  # Используется правильный шаблон
         self.assertContains(response, 'новый')  # Статус отображается на странице
-
-#    def test_status_create_view_requires_login(self):
-#        """Проверяет, что доступ к форме создания статуса требует авторизации"""
-#        response = self.client.get(reverse('statuses:create'))
-#        self.assertEqual(response.status_code, 302)  # Должен быть редирект на страницу входа
 
     def test_status_create_view_authenticated(self):
         """Проверяет, что авторизованный пользователь может получить форму создания статуса"""
@@ -73,11 +63,6 @@ class StatusesViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)  # Остается на странице
 #        self.assertContains(response, 'This field is required')  # Сообщение об ошибке
 
-#    def test_status_update_view_requires_login(self):
-#        """Проверяет, что доступ к форме редактирования статуса требует авторизации"""
-#        response = self.client.get(reverse('statuses:update', args=[self.status.id]))
-#        self.assertEqual(response.status_code, 302)  # Должен быть редирект на страницу входа
-
     def test_status_update_view_authenticated(self):
         """Проверяет, что авторизованный пользователь может получить форму редактирования статуса"""
         self.client.login(username='testuser', password=TEST_PASSWORD)
@@ -113,11 +98,6 @@ class StatusesViewsTest(TestCase):
 
         self.assertEqual(response.status_code, 200)  # Остается на странице
 #        self.assertContains(response, 'This field is required')  # Сообщение об ошибке
-
-#    def test_status_delete_view_requires_login(self):
-#        """Проверяет, что доступ к форме удаления статуса требует авторизации"""
-#        response = self.client.get(reverse('statuses:delete', args=[self.status.id]))
-#        self.assertEqual(response.status_code, 302)  # Должен быть редирект на страницу входа
 
     def test_status_delete_view_authenticated(self):
         """Проверяет, что авторизованный пользователь может получить форму удаления статуса"""
