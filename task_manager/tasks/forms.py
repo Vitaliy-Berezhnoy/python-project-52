@@ -3,17 +3,19 @@ from django.utils.translation import gettext_lazy as _
 from .models import Task
 from task_manager.statuses.models import Status
 from task_manager.users.models import User
+from task_manager.labels.models import Label
 
 
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['name', 'description', 'status', 'executor']
+        fields = ['name', 'description', 'status', 'executor', 'labels']
         labels = {
             'name': _('Name'),
             'description': _('Description'),
             'status': _('Status'),
             'executor': _('Executor'),
+            'labels': _('Labels'),
         }
         widgets = {
             'name': forms.TextInput(attrs={
@@ -27,17 +29,17 @@ class TaskForm(forms.ModelForm):
             }),
             'status': forms.Select(attrs={'class': 'form-control'}),
             'executor': forms.Select(attrs={'class': 'form-control'}),
+            'labels': forms.SelectMultiple(attrs={'class': 'form-control', 'size': 5}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Делаем поле executor необязательным
         self.fields['executor'].required = False
         self.fields['executor'].empty_label = _('Not selected')
-
-        # Оптимизируем queryset для исполнителей
         self.fields['executor'].queryset = User.objects.all().order_by('username')
         self.fields['status'].queryset = Status.objects.all().order_by('name')
+        self.fields['labels'].queryset = Label.objects.all().order_by('name')
+        self.fields['labels'].required = False
 
     def clean_name(self):
         """Валидация имени задачи"""

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Labels" %} - {% trans "Task Manager" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <!-- Заголовок -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0">{% trans "Labels" %}</h1>
+                <a href="{% url 'labels:create' %}" class="btn btn-primary">
+                    {% trans "Create label" %}
+                </a>
+            </div>
+
+            <!-- Таблица меток -->
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">{% trans "Name" %}</th>
+                                    <th scope="col">{% trans "Created at" %}</th>
+                                    <th scope="col">{% trans "Actions" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for label in labels %}
+                                <tr>
+                                    <td class="fw-bold">{{ label.id }}</td>
+                                    <td>{{ label.name }}</td>
+                                    <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a href="{% url 'labels:update' label.id %}" class="btn btn-outline-primary">
+                                                {% trans "Update" %}
+                                            </a>
+                                            <a href="{% url 'labels:delete' label.id %}" class="btn btn-outline-danger">
+                                                {% trans "Delete" %}
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-4">
+                                        <div class="text-muted">
+                                            <i class="bi bi-tags display-4 d-block mb-2"></i>
+                                            {% trans "No labels found" %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
