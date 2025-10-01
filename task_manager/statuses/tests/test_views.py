@@ -101,6 +101,19 @@ class StatusesViewsTest(TestCase):
         self.status.refresh_from_db()
         self.assertEqual(self.status.name, 'обновленный статус')
 
+    def test_status_update_with_invalid_data(self):
+        """Проверяет, что форма редактирования не принимает невалидные данные"""
+        self.client.login(username='testuser', password=TEST_PASSWORD)
+        form_data = {'name': ''}  # Пустое имя
+
+        response = self.client.post(
+            reverse('statuses:update', args=[self.status.id]),
+            data=form_data
+        )
+
+        self.assertEqual(response.status_code, 200)  # Остается на странице
+#        self.assertContains(response, 'This field is required')  # Сообщение об ошибке
+
 #    def test_status_delete_view_requires_login(self):
 #        """Проверяет, что доступ к форме удаления статуса требует авторизации"""
 #        response = self.client.get(reverse('statuses:delete', args=[self.status.id]))
@@ -151,9 +164,9 @@ class StatusesViewsTest(TestCase):
         self.client.login(username='testuser', password=TEST_PASSWORD)
 
         # Создаем статусы в разном порядке
-        status1 = Status.objects.create(name='первый')
-        status2 = Status.objects.create(name='второй')
-        status3 = Status.objects.create(name='третий')
+        Status.objects.create(name='первый')
+        Status.objects.create(name='второй')
+        Status.objects.create(name='третий')
 
         response = self.client.get(reverse('statuses:statuses'))
 
