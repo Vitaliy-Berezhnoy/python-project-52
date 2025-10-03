@@ -1,25 +1,35 @@
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import redirect
 from django.contrib import messages
+from django_filters.views import FilterView
 from .models import Task
 from .forms import TaskForm
+from .filters import TaskFilter
 
 
-class TasksListView(LoginRequiredMixin, ListView):
+class TasksListView(LoginRequiredMixin, FilterView):
     model = Task
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
+    filterset_class = TaskFilter
     ordering = ['-created_at']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.select_related('status', 'author', 'executor').prefetch_related('labels')
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'tasks/detail.html'
     context_object_name = 'task'
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('status', 'author', 'executor').prefetch_related('labels')
 
 
 class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

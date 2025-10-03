@@ -15,6 +15,51 @@
                 </a>
             </div>
 
+            <!-- Форма фильтрации -->
+            <div class="card mb-4">
+                <div class="card-body bg-light">
+                    <form method="get" class="row g-3 align-items-end">
+
+                        <!-- Статус -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                               {{ filter.form.status.label_tag }}
+                               {{ filter.form.status }}
+                            </div>
+                        </div>
+
+                        <!-- Исполнитель -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{ filter.form.executor.label_tag }}
+                                {{ filter.form.executor }}
+                            </div>
+                        </div>
+
+                        <!-- Метка -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {{ filter.form.labels.label_tag }}
+                                {{ filter.form.labels }}
+                            </div>
+                        </div>
+
+                        <!-- Только мои задачи -->
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                {{ filter.form.self_tasks }}
+                                {{ filter.form.self_tasks.label_tag }}
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">{% trans "Filter" %}</button>
+                            <a href="{% url 'tasks:tasks' %}" class="btn btn-outline-secondary">{% trans "Reset" %}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <!-- Таблица задач -->
             <div class="card">
                 <div class="card-body p-0">
@@ -71,4 +116,10 @@
         </div>
     </div>
 </div>
+
+<style>
+.form-select, .form-control {
+    width: 100%;
+}
+</style>
 {% endblock %}
