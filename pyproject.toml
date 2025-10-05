@@ -16,7 +16,7 @@ dependencies = [
     "whitenoise>=6.11.0",
 ]
 
-[dependency-groups]
+[project.optional-dependencies]
 dev = [
     "ruff>=0.12.11",
 ]
