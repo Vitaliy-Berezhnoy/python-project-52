@@ -5,6 +5,10 @@ from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
 
+def test_error(request):
+    # Это вызовет ошибку для тестирования Rollbar
+    raise Exception("Test error for Rollbar")
+
 def home(request):
     return render(request, "home.html")
 
