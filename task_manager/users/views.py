@@ -48,7 +48,7 @@ class UserUpdateView(LoginRequiredMixin, UserPermissionMixin, SuccessMessageMixi
     success_message = _("The user has been successfully updated")
     login_url = reverse_lazy('login')
     form_title = _("Edit User")
-    form_submit = _("Update")
+    form_submit = _("To change")
 
 
 class UserDeleteView(LoginRequiredMixin, UserPermissionMixin, SuccessMessageMixin, DeleteView):

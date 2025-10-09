@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 09:03+0300\n"
+"POT-Creation-Date: 2025-10-09 18:03+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,9 +28,9 @@ msgstr ""
 #: task_manager/tasks/forms.py:23 task_manager/tasks/models.py:11
 #: task_manager/templates/labels/index.html:26
 #: task_manager/templates/statuses/index.html:26
-#: task_manager/templates/tasks/index.html:71 task_manager/users/forms.py:42
-#: task_manager/users/forms.py:47 task_manager/users/forms.py:60
-#: task_manager/users/forms.py:66
+#: task_manager/templates/tasks/index.html:71 task_manager/users/forms.py:38
+#: task_manager/users/forms.py:43 task_manager/users/forms.py:93
+#: task_manager/users/forms.py:98
 msgid "Name"
 msgstr "Имя"
 
@@ -238,8 +238,7 @@ msgid "Login"
 msgstr "Вход"
 
 #: task_manager/templates/base.html:61
-#: task_manager/templates/users/new_user.html:5
-#: task_manager/templates/users/new_user.html:12
+#: task_manager/templates/users/new_user.html:5 task_manager/users/views.py:37
 msgid "Registration"
 msgstr "Регистрация"
 
@@ -318,7 +317,6 @@ msgstr "Действия"
 #: task_manager/templates/tasks/detail.html:15
 #: task_manager/templates/tasks/index.html:93
 #: task_manager/templates/tasks/update.html:23
-#: task_manager/templates/users/update.html:23
 msgid "Update"
 msgstr "Обновить"
 
@@ -340,9 +338,9 @@ msgid "Update Label"
 msgstr "Изменение метки"
 
 #: task_manager/templates/login.html:20
-#: task_manager/templates/users/index.html:23 task_manager/users/forms.py:44
-#: task_manager/users/forms.py:49 task_manager/users/forms.py:62
-#: task_manager/users/forms.py:68
+#: task_manager/templates/users/index.html:23 task_manager/users/forms.py:40
+#: task_manager/users/forms.py:45 task_manager/users/forms.py:95
+#: task_manager/users/forms.py:100
 msgid "Username"
 msgstr "Имя пользователя"
 
@@ -351,7 +349,8 @@ msgid "Enter your username"
 msgstr "Имя пользователя"
 
 #: task_manager/templates/login.html:26 task_manager/users/forms.py:10
-#: task_manager/users/forms.py:12
+#: task_manager/users/forms.py:11 task_manager/users/forms.py:54
+#: task_manager/users/forms.py:55
 msgid "Password"
 msgstr "Пароль"
 
@@ -367,8 +366,7 @@ msgstr "Войти"
 msgid "Don't have an account?"
 msgstr "У вас нет аккаунта?"
 
-#: task_manager/templates/login.html:43
-#: task_manager/templates/users/new_user.html:23
+#: task_manager/templates/login.html:43 task_manager/users/views.py:38
 msgid "Register"
 msgstr "Зарегистрировать"
 
@@ -421,7 +419,7 @@ msgid "Update Task"
 msgstr "Изменение задачи"
 
 #: task_manager/templates/users/delete.html:5
-#: task_manager/templates/users/delete.html:14 task_manager/users/views.py:62
+#: task_manager/templates/users/delete.html:14
 msgid "Delete User"
 msgstr "Удалить пользователя"
 
@@ -447,37 +445,37 @@ msgstr "Изменить"
 msgid "No users found"
 msgstr "Пользователи не найдены"
 
-#: task_manager/templates/users/update.html:5
-#: task_manager/templates/users/update.html:12 task_manager/users/views.py:48
+#: task_manager/templates/users/update.html:5 task_manager/users/views.py:50
 msgid "Edit User"
 msgstr "Редактирование пользователя"
 
-#: task_manager/users/forms.py:14
+#: task_manager/users/forms.py:12 task_manager/users/forms.py:57
 msgid "Your password must contain at least 3 characters."
 msgstr "Ваш пароль должен содержать как минимум 3 символа."
 
-#: task_manager/users/forms.py:18 task_manager/users/forms.py:20
+#: task_manager/users/forms.py:16 task_manager/users/forms.py:17
+#: task_manager/users/forms.py:61 task_manager/users/forms.py:62
 msgid "Password confirmation"
 msgstr "Подтверждение пароля"
 
-#: task_manager/users/forms.py:22
+#: task_manager/users/forms.py:18 task_manager/users/forms.py:64
 msgid "Please enter the password again to confirm."
 msgstr "Для подтверждения введите, пожалуйста, пароль ещё раз."
 
-#: task_manager/users/forms.py:28
+#: task_manager/users/forms.py:24 task_manager/users/forms.py:70
 msgid "Password must be at least 3 characters long"
 msgstr "Пароль должен состоять как минимум из 3 символов"
 
-#: task_manager/users/forms.py:35
+#: task_manager/users/forms.py:31 task_manager/users/forms.py:77
 msgid "The entered passwords do not match."
 msgstr "Пароли не совпадают"
 
-#: task_manager/users/forms.py:43 task_manager/users/forms.py:48
-#: task_manager/users/forms.py:61 task_manager/users/forms.py:67
+#: task_manager/users/forms.py:39 task_manager/users/forms.py:44
+#: task_manager/users/forms.py:94 task_manager/users/forms.py:99
 msgid "Surname"
 msgstr "Фамилия"
 
-#: task_manager/users/forms.py:52 task_manager/users/forms.py:72
+#: task_manager/users/forms.py:48 task_manager/users/forms.py:103
 msgid ""
 "Required field. No more than 150 characters. Only letters, numbers, and "
 "symbols @/./+/-/_."
@@ -490,22 +488,26 @@ msgid "User"
 msgstr "Пользователь"
 
 #: task_manager/users/views.py:13
-msgid "You do not have permission to perform this action."
-msgstr "У вас нет прав чтобы сделать это действие"
+msgid "You don't have the rights to change another user"
+msgstr "У вас нет прав для изменения другого пользователя."
 
 #: task_manager/users/views.py:36
 msgid "The user has been successfully registered"
 msgstr "Пользователь успешно зарегистрирован"
 
-#: task_manager/users/views.py:43
+#: task_manager/users/views.py:48
 msgid "The user has been successfully updated"
 msgstr "Пользователь успешно изменен"
 
-#: task_manager/users/views.py:56
+#: task_manager/users/views.py:51
+msgid "To change"
+msgstr "Изменить"
+
+#: task_manager/users/views.py:58
 msgid "The user has been successfully deleted"
 msgstr "Пользователь успешно удален"
 
-#: task_manager/users/views.py:57
+#: task_manager/users/views.py:59
 msgid "You do not have permission to delete another user."
 msgstr "У вас нет прав для изменения другого пользователя."
 
@@ -520,3 +522,6 @@ msgstr "Пожалуйста, введите правильный логин и 
 #: task_manager/views.py:36
 msgid "You are logged out"
 msgstr "Вы разлогинены"
+
+#~ msgid "You do not have permission to perform this action."
+#~ msgstr "У вас нет прав чтобы сделать это действие"
