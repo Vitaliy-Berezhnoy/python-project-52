@@ -35,7 +35,6 @@ class TaskForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['executor'].required = False
-        self.fields['executor'].empty_label = _('Not selected')
         self.fields['executor'].queryset = User.objects.all().order_by('username')
         self.fields['status'].queryset = Status.objects.all().order_by('name')
         self.fields['labels'].queryset = Label.objects.all().order_by('name')
