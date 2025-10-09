@@ -8,17 +8,13 @@ from django.utils.translation import gettext_lazy as _
 class UserRegistrationForm(UserCreationForm):
     password1 = CharField(
         label=_("Password"),
-        widget=PasswordInput(
-            attrs={'class': 'form-control', 'placeholder': _("Password")}
-        ),
+        widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': _("Password")}),
         help_text=_("Your password must contain at least 3 characters.")
     )
 
     password2 = CharField(
         label=_("Password confirmation"),
-        widget=PasswordInput(
-            attrs={'class': 'form-control', 'placeholder': _("Password confirmation")}
-        ),
+        widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': _("Password confirmation")}),
         help_text=_("Please enter the password again to confirm.")
     )
 

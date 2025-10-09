@@ -2,14 +2,14 @@
 {% load i18n %}
 {% load django_bootstrap5 %}
 
-{% block title %}{% trans "Registration" %} - {% trans "Task Manager" %}{% endblock %}
+{% block title %}{% translate "Registration" %} - {% translate "Task Manager" %}{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h2 class="h4 mb-0">{% trans "Registration" %}</h2>
+                <h2 class="h4 mb-0">{% translate view.form_title %}</h2>
             </div>
 
             <div class="card-body">
@@ -20,7 +20,7 @@
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg">
-                            {% trans "Register" %}
+                            {% translate view.form_submit %}
                         </button>
                     </div>
                 </form>

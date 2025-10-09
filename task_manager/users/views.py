@@ -10,7 +10,7 @@ from django.contrib import messages
 
 
 class UserPermissionMixin(AccessMixin):
-    permission_message = _('You do not have permission to perform this action.')
+    permission_message = _("You don't have the rights to change another user")
     redirect_url = 'users'
 
     def dispatch(self, request, *args, **kwargs):
@@ -34,19 +34,21 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = 'users/new_user.html'
     success_url = reverse_lazy('login')
     success_message = _("The user has been successfully registered")
+    form_title = _("Registration")
+    form_submit = _("Register")
+
 
 class UserUpdateView(LoginRequiredMixin, UserPermissionMixin, SuccessMessageMixin, UpdateView):
     model = User
+#    form_class = UserRegistrationForm
+#    template_name = 'users/new_user.html'
     form_class = UserUpdateForm
     template_name = 'users/update.html'
     success_url = reverse_lazy('users')
     success_message = _("The user has been successfully updated")
     login_url = reverse_lazy('login')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _('Edit User')
-        return context
+    form_title = _("Edit User")
+    form_submit = _("Update")
 
 
 class UserDeleteView(LoginRequiredMixin, UserPermissionMixin, SuccessMessageMixin, DeleteView):
@@ -56,8 +58,3 @@ class UserDeleteView(LoginRequiredMixin, UserPermissionMixin, SuccessMessageMixi
     success_message = _("The user has been successfully deleted")
     permission_message = _('You do not have permission to delete another user.')
     login_url = reverse_lazy('login')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _('Delete User')
-        return context
