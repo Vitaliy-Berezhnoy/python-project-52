@@ -1,4 +1,5 @@
-import django_filters
+from django_filters import FilterSet, ModelChoiceFilter, BooleanFilter
+from django.forms import CheckboxInput
 from django.utils.translation import gettext_lazy as _
 from .models import Task
 from task_manager.statuses.models import Status
@@ -6,29 +7,29 @@ from task_manager.users.models import User
 from task_manager.labels.models import Label
 
 
-class TaskFilter(django_filters.FilterSet):
-    status = django_filters.ModelChoiceFilter(
+class TaskFilter(FilterSet):
+    status = ModelChoiceFilter(
         queryset=Status.objects.all(),
         label=_('Status'),
         empty_label=_('Any status')
     )
 
-    executor = django_filters.ModelChoiceFilter(
+    executor = ModelChoiceFilter(
         queryset=User.objects.all(),
         label=_('Executor'),
         empty_label=_('Any executor')
     )
 
-    labels = django_filters.ModelChoiceFilter(
+    labels = ModelChoiceFilter(
         queryset=Label.objects.all(),
         label=_('Label'),
         empty_label=_('Any label')
     )
 
-    self_tasks = django_filters.BooleanFilter(
+    self_tasks = BooleanFilter(
         method='filter_self_tasks',
         label=_('Only my tasks'),
-        widget=django_filters.widgets.BooleanWidget(attrs={'class': 'form-check-input'})
+        widget=CheckboxInput(attrs={'class': 'form-check-input'})
     )
 
     class Meta:
