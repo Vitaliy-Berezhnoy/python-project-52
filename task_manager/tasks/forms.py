@@ -25,13 +25,14 @@ class TaskForm(ModelForm):
             'labels': SelectMultiple(attrs={'class': 'form-control', 'size': 5}),
         }
 
-#    def __init__(self, *args, **kwargs):
-#        super().__init__(*args, **kwargs)
-#        self.fields['executor'].required = False
-#        self.fields['executor'].queryset = User.objects.all().order_by('username')
-#        self.fields['status'].queryset = Status.objects.all().order_by('name')
-#        self.fields['labels'].queryset = Label.objects.all().order_by('name')
-#        self.fields['labels'].required = False
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['executor'].required = False
+        self.fields['executor'].queryset = User.objects.all().order_by('first_name', 'last_name', 'username')
+        self.fields['executor'].label_from_instance = User.get_full_name
+        self.fields['status'].queryset = Status.objects.all().order_by('name')
+        self.fields['labels'].queryset = Label.objects.all().order_by('name')
+        self.fields['labels'].required = False
 
     def clean_name(self):
         """Валидация имени задачи"""
