@@ -44,6 +44,17 @@
                     </div>
                 </div>
 
+                {% if task.labels.all %}
+                <div class="mb-3">
+                    <strong>{% trans "Labels" %}:</strong>
+                    <p class="mt-2">
+                        {% for label in task.labels.all %}
+                            <span class="badge bg-secondary me-1">{{ label.name }}</span>
+                        {% endfor %}
+                    </p>
+                </div>
+                {% endif %}
+
                 {% if task.description %}
                 <div class="mb-3">
                     <strong>{% trans "Description" %}:</strong>
