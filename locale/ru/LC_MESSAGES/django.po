@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-09 18:03+0300\n"
+"POT-Creation-Date: 2025-10-09 19:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -311,14 +311,11 @@ msgid "Actions"
 msgstr "Действия"
 
 #: task_manager/templates/labels/index.html:40
-#: task_manager/templates/labels/update.html:23
 #: task_manager/templates/statuses/index.html:40
-#: task_manager/templates/statuses/update.html:23
-#: task_manager/templates/tasks/detail.html:15
 #: task_manager/templates/tasks/index.html:93
-#: task_manager/templates/tasks/update.html:23
-msgid "Update"
-msgstr "Обновить"
+#: task_manager/templates/users/index.html:39
+msgid "Edit"
+msgstr "Изменить"
 
 #: task_manager/templates/labels/index.html:43
 #: task_manager/templates/statuses/index.html:43
@@ -336,6 +333,12 @@ msgstr "Не найдено ни одной метки"
 #: task_manager/templates/labels/update.html:12
 msgid "Update Label"
 msgstr "Изменение метки"
+
+#: task_manager/templates/labels/update.html:23
+#: task_manager/templates/statuses/update.html:23
+#: task_manager/templates/tasks/update.html:23 task_manager/users/views.py:49
+msgid "To change"
+msgstr "Изменить"
 
 #: task_manager/templates/login.html:20
 #: task_manager/templates/users/index.html:23 task_manager/users/forms.py:40
@@ -401,6 +404,10 @@ msgstr "Удаление задачи"
 msgid "Are you sure you want to delete the task?"
 msgstr "Вы уверены, что хотите удалить задачу?"
 
+#: task_manager/templates/tasks/detail.html:15
+msgid "Update"
+msgstr "Обновить"
+
 #: task_manager/templates/tasks/index.html:56
 msgid "Filter"
 msgstr "Показать"
@@ -437,15 +444,11 @@ msgstr "Полное имя"
 msgid "Created At"
 msgstr "Дата создания"
 
-#: task_manager/templates/users/index.html:39
-msgid "Edit"
-msgstr "Изменить"
-
 #: task_manager/templates/users/index.html:52
 msgid "No users found"
 msgstr "Пользователи не найдены"
 
-#: task_manager/templates/users/update.html:5 task_manager/users/views.py:50
+#: task_manager/templates/users/update.html:5 task_manager/users/views.py:48
 msgid "Edit User"
 msgstr "Редактирование пользователя"
 
@@ -495,19 +498,15 @@ msgstr "У вас нет прав для изменения другого по�
 msgid "The user has been successfully registered"
 msgstr "Пользователь успешно зарегистрирован"
 
-#: task_manager/users/views.py:48
+#: task_manager/users/views.py:46
 msgid "The user has been successfully updated"
 msgstr "Пользователь успешно изменен"
 
-#: task_manager/users/views.py:51
-msgid "To change"
-msgstr "Изменить"
-
-#: task_manager/users/views.py:58
+#: task_manager/users/views.py:56
 msgid "The user has been successfully deleted"
 msgstr "Пользователь успешно удален"
 
-#: task_manager/users/views.py:59
+#: task_manager/users/views.py:57
 msgid "You do not have permission to delete another user."
 msgstr "У вас нет прав для изменения другого пользователя."
 
