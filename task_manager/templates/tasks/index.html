@@ -18,28 +18,28 @@
             <!-- Форма фильтрации -->
             <div class="card mb-4">
                 <div class="card-body bg-light">
-                    <form method="get" class="row g-3 align-items-end">
+                    <form method="get" class="row g-3 align-items-end" id="task-filter-form">  <!-- ИЗМЕНЕНИЕ: добавлен id -->
 
                         <!-- Статус -->
                         <div class="col-md-3">
-                            <div class="form-group">
-                               {{ filter.form.status.label_tag }}
+                            <div class="form-group filter-status">  <!-- ИЗМЕНЕНИЕ: добавлен класс -->
+                               <label for="id_status" class="filter-label">{% translate "Status" %}</label>  <!-- ИЗМЕНЕНИЕ: добавлен класс -->
                                {{ filter.form.status }}
                             </div>
                         </div>
 
                         <!-- Исполнитель -->
                         <div class="col-md-3">
-                            <div class="form-group">
-                                {{ filter.form.executor.label_tag }}
+                            <div class="form-group filter-executor">  <!-- ИЗМЕНЕНИЕ: добавлен класс -->
+                                <label for="id_executor" class="filter-label">{% translate "Executor" %}</label>  <!-- ИЗМЕНЕНИЕ: добавлен класс -->
                                 {{ filter.form.executor }}
                             </div>
                         </div>
 
                         <!-- Метка -->
                         <div class="col-md-3">
-                            <div class="form-group">
-                                {{ filter.form.labels.label_tag }}
+                            <div class="form-group filter-labels">  <!-- ИЗМЕНЕНИЕ: добавлен класс -->
+                                <label for="id_labels" class="filter-label">{% translate "Label" %}</label>  <!-- ИЗМЕНЕНИЕ: добавлен класс -->
                                 {{ filter.form.labels }}
                             </div>
                         </div>
@@ -48,8 +48,8 @@
                         <div class="col-md-3">
                             <div class="form-check">
                                <label class="form-check-label" for="{{ filter.form.self_tasks.auto_id }}">
-                                   {{ filter.form.self_tasks }}
                                    {{ filter.form.self_tasks.label }}
+                                   {{ filter.form.self_tasks }}
                                </label>
                             </div>
                         </div>
