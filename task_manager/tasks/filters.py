@@ -43,7 +43,11 @@ class TaskFilter(FilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        executor_filter = self.filters['executor']
+        executor_filter.field.label_from_instance = User.get_full_name
+
         # Упорядочиваем queryset для выпадающих списков
         self.filters['status'].queryset = Status.objects.all().order_by('name')
-        self.filters['executor'].queryset = User.objects.all().order_by('username')
+        self.filters['executor'].queryset = User.objects.all().order_by('first_name', 'last_name', 'username')
         self.filters['labels'].queryset = Label.objects.all().order_by('name')
