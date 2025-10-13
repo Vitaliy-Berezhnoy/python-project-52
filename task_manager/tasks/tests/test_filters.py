@@ -1,14 +1,14 @@
-from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.test import TestCase
 from django_filters import FilterSet
 
-from task_manager.tasks.models import Task
-from task_manager.tasks.filters import TaskFilter
-from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
+from task_manager.statuses.models import Status
+from task_manager.tasks.filters import TaskFilter
+from task_manager.tasks.models import Task
 
 User = get_user_model()
-TEST_PASSWORD = 'ValidPassword123!'
+TEST_PASSWORD = "ValidPassword123!"
 
 
 class TaskFilterTest(TestCase):
@@ -17,58 +17,58 @@ class TaskFilterTest(TestCase):
     def setUp(self):
         """Подготовка тестовых данных"""
         self.author = User.objects.create_user(
-            username='author',
+            username="author",
             password=TEST_PASSWORD,
-            first_name='Автор',
-            last_name='Тестов'
+            first_name="Автор",
+            last_name="Тестов",
         )
         self.executor = User.objects.create_user(
-            username='executor',
+            username="executor",
             password=TEST_PASSWORD,
-            first_name='Исполнитель',
-            last_name='Тестов'
+            first_name="Исполнитель",
+            last_name="Тестов",
         )
         self.other_user = User.objects.create_user(
-            username='otheruser',
+            username="otheruser",
             password=TEST_PASSWORD,
-            first_name='Другой',
-            last_name='Пользователь'
+            first_name="Другой",
+            last_name="Пользователь",
         )
 
         # Создаем статусы
-        self.status_new = Status.objects.create(name='новый')
-        self.status_in_progress = Status.objects.create(name='в работе')
-        self.status_completed = Status.objects.create(name='завершен')
+        self.status_new = Status.objects.create(name="новый")
+        self.status_in_progress = Status.objects.create(name="в работе")
+        self.status_completed = Status.objects.create(name="завершен")
 
         # Создаем метки
-        self.label_work = Label.objects.create(name='Работа')
-        self.label_personal = Label.objects.create(name='Личное')
+        self.label_work = Label.objects.create(name="Работа")
+        self.label_personal = Label.objects.create(name="Личное")
 
         # Создаем тестовые задачи
         self.task1 = Task.objects.create(
-            name='Первая задача автора',
-            description='Описание первой задачи',
+            name="Первая задача автора",
+            description="Описание первой задачи",
             status=self.status_new,
             author=self.author,
-            executor=self.executor
+            executor=self.executor,
         )
         self.task1.labels.add(self.label_work)
 
         self.task2 = Task.objects.create(
-            name='Вторая задача автора',
-            description='Описание второй задачи',
+            name="Вторая задача автора",
+            description="Описание второй задачи",
             status=self.status_in_progress,
             author=self.author,
-            executor=self.other_user
+            executor=self.other_user,
         )
         self.task2.labels.add(self.label_personal)
 
         self.task3 = Task.objects.create(
-            name='Задача другого пользователя',
-            description='Описание задачи другого пользователя',
+            name="Задача другого пользователя",
+            description="Описание задачи другого пользователя",
             status=self.status_completed,
             author=self.other_user,
-            executor=self.author
+            executor=self.author,
         )
         self.task3.labels.add(self.label_work, self.label_personal)
 
@@ -84,16 +84,14 @@ class TaskFilterTest(TestCase):
 
         # Создаем фильтр с mock request
         task_filter = TaskFilter(
-            data={},
-            queryset=Task.objects.all(),
-            request=mock_request
+            data={}, queryset=Task.objects.all(), request=mock_request
         )
 
         self.assertIsInstance(task_filter, FilterSet)
-        self.assertIn('status', task_filter.filters)
-        self.assertIn('executor', task_filter.filters)
-        self.assertIn('labels', task_filter.filters)
-        self.assertIn('self_tasks', task_filter.filters)
+        self.assertIn("status", task_filter.filters)
+        self.assertIn("executor", task_filter.filters)
+        self.assertIn("labels", task_filter.filters)
+        self.assertIn("self_tasks", task_filter.filters)
 
     def test_filter_by_status(self):
         """Проверяет фильтрацию по статусу"""
@@ -106,9 +104,9 @@ class TaskFilterTest(TestCase):
 
         # Фильтруем по статусу "новый"
         task_filter = TaskFilter(
-            data={'status': self.status_new.id},
+            data={"status": self.status_new.id},
             queryset=Task.objects.all(),
-            request=mock_request
+            request=mock_request,
         )
 
         filtered_tasks = task_filter.qs
@@ -126,9 +124,9 @@ class TaskFilterTest(TestCase):
 
         # Фильтруем по исполнителю
         task_filter = TaskFilter(
-            data={'executor': self.executor.id},
+            data={"executor": self.executor.id},
             queryset=Task.objects.all(),
-            request=mock_request
+            request=mock_request,
         )
 
         filtered_tasks = task_filter.qs
@@ -146,9 +144,9 @@ class TaskFilterTest(TestCase):
 
         # Фильтруем по метке "Работа"
         task_filter = TaskFilter(
-            data={'labels': self.label_work.id},
+            data={"labels": self.label_work.id},
             queryset=Task.objects.all(),
-            request=mock_request
+            request=mock_request,
         )
 
         filtered_tasks = task_filter.qs
@@ -167,9 +165,9 @@ class TaskFilterTest(TestCase):
 
         # Фильтруем только задачи автора
         task_filter = TaskFilter(
-            data={'self_tasks': True},
+            data={"self_tasks": True},
             queryset=Task.objects.all(),
-            request=mock_request
+            request=mock_request,
         )
 
         filtered_tasks = task_filter.qs
@@ -189,9 +187,9 @@ class TaskFilterTest(TestCase):
 
         # Не фильтруем по автору (показываем все задачи)
         task_filter = TaskFilter(
-            data={'self_tasks': False},
+            data={"self_tasks": False},
             queryset=Task.objects.all(),
-            request=mock_request
+            request=mock_request,
         )
 
         filtered_tasks = task_filter.qs
@@ -211,9 +209,7 @@ class TaskFilterTest(TestCase):
 
         # Не указываем фильтр self_tasks
         task_filter = TaskFilter(
-            data={},
-            queryset=Task.objects.all(),
-            request=mock_request
+            data={}, queryset=Task.objects.all(), request=mock_request
         )
 
         filtered_tasks = task_filter.qs
@@ -233,12 +229,9 @@ class TaskFilterTest(TestCase):
 
         # Фильтруем по статусу и метке одновременно
         task_filter = TaskFilter(
-            data={
-                'status': self.status_new.id,
-                'labels': self.label_work.id
-            },
+            data={"status": self.status_new.id, "labels": self.label_work.id},
             queryset=Task.objects.all(),
-            request=mock_request
+            request=mock_request,
         )
 
         filtered_tasks = task_filter.qs
@@ -255,9 +248,7 @@ class TaskFilterTest(TestCase):
         mock_request = MockRequest(self.author)
 
         task_filter = TaskFilter(
-            data={},
-            queryset=Task.objects.all(),
-            request=mock_request
+            data={}, queryset=Task.objects.all(), request=mock_request
         )
 
         filtered_tasks = task_filter.qs
@@ -276,15 +267,15 @@ class TaskFilterTest(TestCase):
         mock_request = MockRequest(self.author)
 
         task_filter = TaskFilter(
-            data={},
-            queryset=Task.objects.all(),
-            request=mock_request
+            data={}, queryset=Task.objects.all(), request=mock_request
         )
 
         # Проверяем, что метки упорядочены по имени
-        labels_queryset = task_filter.filters['labels'].queryset
-        labels_names = list(labels_queryset.values_list('name', flat=True))
-        self.assertEqual(labels_names, ['Личное', 'Работа'])  # В алфавитном порядке
+        labels_queryset = task_filter.filters["labels"].queryset
+        labels_names = list(labels_queryset.values_list("name", flat=True))
+        self.assertEqual(
+            labels_names, ["Личное", "Работа"]
+        )  # В алфавитном порядке
 
     def test_empty_status_queryset_ordering(self):
         """Проверяет упорядочивание статусов по имени"""
@@ -296,12 +287,12 @@ class TaskFilterTest(TestCase):
         mock_request = MockRequest(self.author)
 
         task_filter = TaskFilter(
-            data={},
-            queryset=Task.objects.all(),
-            request=mock_request
+            data={}, queryset=Task.objects.all(), request=mock_request
         )
 
         # Проверяем, что статусы упорядочены по имени
-        status_queryset = task_filter.filters['status'].queryset
-        status_names = list(status_queryset.values_list('name', flat=True))
-        self.assertEqual(status_names, ['в работе', 'завершен', 'новый'])  # В алфавитном порядке
+        status_queryset = task_filter.filters["status"].queryset
+        status_names = list(status_queryset.values_list("name", flat=True))
+        self.assertEqual(
+            status_names, ["в работе", "завершен", "новый"]
+        )  # В алфавитном порядке
