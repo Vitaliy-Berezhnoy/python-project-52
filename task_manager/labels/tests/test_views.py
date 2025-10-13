@@ -20,12 +20,12 @@ class LabelsViewsTest(TestCase):
         self.label = Label.objects.create(name="bug")
 
     def test_labels_list_view_requires_login(self):
-        """Проверяет, что доступ к списку меток требует авторизации"""
+        """доступ к списку меток требует авторизации"""
         response = self.client.get(reverse("labels:labels"))
         self.assertEqual(response.status_code, 302)  # Редирект на логин
 
     def test_labels_list_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может видеть список меток"""
+        """авторизованный пользователь может видеть список меток"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         response = self.client.get(reverse("labels:labels"))
         self.assertEqual(response.status_code, 200)
@@ -33,12 +33,12 @@ class LabelsViewsTest(TestCase):
         self.assertContains(response, "bug")
 
     def test_label_create_view_requires_login(self):
-        """Проверяет, что доступ к форме создания метки требует авторизации"""
+        """доступ к форме создания метки требует авторизации"""
         response = self.client.get(reverse("labels:create"))
         self.assertEqual(response.status_code, 302)
 
     def test_label_create_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может получить форму создания метки"""
+        """авторизованный пользователь может получить форму создания метки"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         response = self.client.get(reverse("labels:create"))
         self.assertEqual(response.status_code, 200)
@@ -58,14 +58,14 @@ class LabelsViewsTest(TestCase):
         self.assertTrue(Label.objects.filter(name="feature").exists())
 
     def test_label_update_view_requires_login(self):
-        """Проверяет, что доступ к форме редактирования метки требует авторизации"""
+        """доступ к форме редактирования метки требует авторизации"""
         response = self.client.get(
             reverse("labels:update", args=[self.label.id])
         )
         self.assertEqual(response.status_code, 302)
 
     def test_label_update_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может редактировать метку"""
+        """авторизованный пользователь может редактировать метку"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         response = self.client.get(
             reverse("labels:update", args=[self.label.id])
@@ -90,14 +90,14 @@ class LabelsViewsTest(TestCase):
         self.assertEqual(self.label.name, "critical bug")
 
     def test_label_delete_view_requires_login(self):
-        """Проверяет, что доступ к форме удаления метки требует авторизации"""
+        """доступ к форме удаления метки требует авторизации"""
         response = self.client.get(
             reverse("labels:delete", args=[self.label.id])
         )
         self.assertEqual(response.status_code, 302)
 
     def test_label_delete_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может получить форму удаления метки"""
+        """авторизованный пользователь может получить форму удаления метки"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         response = self.client.get(
             reverse("labels:delete", args=[self.label.id])
@@ -137,7 +137,7 @@ class LabelDeleteProtectionTest(TestCase):
         self.task.labels.add(self.label)
 
     def test_cannot_delete_label_with_tasks(self):
-        """Проверяет, что метка с связанными задачами не может быть удалена"""
+        """метка с связанными задачами не может быть удалена"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
 
         label_count_before = Label.objects.count()
@@ -152,7 +152,7 @@ class LabelDeleteProtectionTest(TestCase):
         self.assertEqual(Label.objects.count(), label_count_before)
 
     def test_can_delete_label_without_tasks(self):
-        """Проверяет, что метка без связанных задач может быть удалена"""
+        """метка без связанных задач может быть удалена"""
         # Удаляем связь с задачей
         self.task.labels.remove(self.label)
 

@@ -10,28 +10,28 @@ class StatusModelTest(TestCase):
         self.status_data = {"name": "новый"}
 
     def test_create_status(self):
-        """Проверяет, что статус создается с правильными атрибутами"""
+        """статус создается с правильными атрибутами"""
         status = Status.objects.create(**self.status_data)
         self.assertEqual(status.name, "новый")
         self.assertIsNotNone(status.created_at)
         self.assertIsNotNone(status.updated_at)
 
     def test_status_string_representation(self):
-        """Проверяет, что строковое представление статуса возвращает его имя"""
+        """строковое представление статуса возвращает его имя"""
         status = Status.objects.create(**self.status_data)
         self.assertEqual(str(status), "новый")
 
     def test_status_verbose_names(self):
-        """Проверяет, что verbose_name и verbose_name_plural настроены правильно"""
+        """verbose_name и verbose_name_plural настроены правильно"""
         self.assertEqual(Status._meta.verbose_name, _("Status"))
         self.assertEqual(Status._meta.verbose_name_plural, _("Statuses"))
 
     def test_status_table_name(self):
-        """Проверяет, что имя таблицы в базе данных установлено правильно"""
+        """имя таблицы в базе данных установлено правильно"""
         self.assertEqual(Status._meta.db_table, "statuses")
 
     def test_status_unique_name(self):
-        """Проверяет, что имя статуса должно быть уникальным"""
+        """имя статуса должно быть уникальным"""
         Status.objects.create(**self.status_data)
         # Попытка создать статус с таким же именем должна вызвать ошибку
         with self.assertRaises(Exception):
@@ -54,7 +54,7 @@ class StatusModelTest(TestCase):
         self.assertEqual(all_statuses[1], status2)
 
     def test_status_fields_exist(self):
-        """Проверяет, что у модели есть все необходимые поля"""
+        """у модели есть все необходимые поля"""
         status = Status.objects.create(**self.status_data)
 
         # Проверяем наличие полей
@@ -73,7 +73,7 @@ class StatusModelTest(TestCase):
         self.assertEqual(name_field.verbose_name, _("Name"))
 
     def test_status_created_updated_auto_now(self):
-        """Проверяет, что created_at и updated_at автоматически устанавливаются"""
+        """created_at и updated_at автоматически устанавливаются"""
         status = Status.objects.create(name="тестовый статус")
 
         # Поля должны быть установлены автоматически

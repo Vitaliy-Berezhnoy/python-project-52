@@ -12,7 +12,7 @@ TEST_PASSWORD = "ValidPassword123!"
 
 class StatusesViewsTest(TestCase):
     def setUp(self):
-        """Подготовка тестовых данных - создаем пользователя и тестовый статус"""
+        """создаем пользователя и тестовый статус"""
         self.client = Client()
         self.user = UserModel.objects.create_user(
             username="testuser", password=TEST_PASSWORD
@@ -20,7 +20,7 @@ class StatusesViewsTest(TestCase):
         self.status = Status.objects.create(name="новый")
 
     def test_statuses_list_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может видеть список статусов"""
+        """авторизованный пользователь может видеть список статусов"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         response = self.client.get(reverse("statuses:statuses"))
         self.assertEqual(response.status_code, 200)  # Успешный доступ
@@ -32,7 +32,7 @@ class StatusesViewsTest(TestCase):
         )  # Статус отображается на странице
 
     def test_status_create_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может получить форму создания статуса"""
+        """авторизованный пользователь может получить форму создания статуса"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         response = self.client.get(reverse("statuses:create"))
         self.assertEqual(response.status_code, 200)  # Успешный доступ к форме
@@ -40,7 +40,7 @@ class StatusesViewsTest(TestCase):
         self.assertContains(response, _("Name"))  # Правильная метка поля
 
     def test_status_create_post_authenticated(self):
-        """Проверяет, что авторизованный пользователь может создать статус через POST-запрос"""
+        """авторизованный пользователь может создать статус через POST-запрос"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         form_data = {"name": "в работе"}
 
@@ -58,7 +58,7 @@ class StatusesViewsTest(TestCase):
         self.assertTrue(Status.objects.filter(name="в работе").exists())
 
     def test_status_create_with_invalid_data(self):
-        """Проверяет, что форма не принимает невалидные данные"""
+        """форма не принимает невалидные данные"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         form_data = {"name": ""}  # Пустое имя
 
@@ -67,7 +67,7 @@ class StatusesViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)  # Остается на странице
 
     def test_status_update_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может получить форму редактирования статуса"""
+        """авторизованный пользователь может получить форму редактирования статуса"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         response = self.client.get(
             reverse("statuses:update", args=[self.status.id])
@@ -81,7 +81,7 @@ class StatusesViewsTest(TestCase):
         )  # Форма содержит текущее имя статуса
 
     def test_status_update_post_authenticated(self):
-        """Проверяет, что авторизованный пользователь может обновить статус через POST-запрос"""
+        """авторизованный пользователь может обновить статус через POST-запрос"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         form_data = {"name": "обновленный статус"}
 
@@ -98,7 +98,7 @@ class StatusesViewsTest(TestCase):
         self.assertEqual(self.status.name, "обновленный статус")
 
     def test_status_update_with_invalid_data(self):
-        """Проверяет, что форма редактирования не принимает невалидные данные"""
+        """форма редактирования не принимает невалидные данные"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         form_data = {"name": ""}  # Пустое имя
 
@@ -109,7 +109,7 @@ class StatusesViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)  # Остается на странице
 
     def test_status_delete_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может получить форму удаления статуса"""
+        """авторизованный пользователь может получить форму удаления статуса"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         response = self.client.get(
             reverse("statuses:delete", args=[self.status.id])
@@ -123,7 +123,7 @@ class StatusesViewsTest(TestCase):
         )  # Форма содержит имя статуса для подтверждения
 
     def test_status_delete_post_authenticated(self):
-        """Проверяет, что авторизованный пользователь может удалить статус через POST-запрос"""
+        """авторизованный пользователь может удалить статус через POST-запрос"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
 
         # Проверяем количество статусов до удаления
@@ -142,7 +142,7 @@ class StatusesViewsTest(TestCase):
         self.assertFalse(Status.objects.filter(id=self.status.id).exists())
 
     def test_cannot_delete_status_in_use(self):
-        """Проверяет, что нельзя удалить статус, который используется в задаче"""
+        """нельзя удалить статус, который используется в задаче"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
 
         # Создаем задачу с этим статусом
@@ -182,7 +182,7 @@ class StatusesViewsTest(TestCase):
         )
 
     def test_statuses_list_shows_all_statuses(self):
-        """Проверяет, что на странице списка отображаются все созданные статусы"""
+        """на странице списка отображаются все созданные статусы"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
 
         # Создаем дополнительные статусы
@@ -197,7 +197,7 @@ class StatusesViewsTest(TestCase):
         self.assertContains(response, "завершен")
 
     def test_statuses_list_ordered_correctly(self):
-        """Проверяет, что статусы отображаются в правильном порядке (по ID)"""
+        """статусы отображаются в правильном порядке (по ID)"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
 
         # Создаем статусы в разном порядке

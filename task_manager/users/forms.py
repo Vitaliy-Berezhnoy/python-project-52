@@ -68,7 +68,8 @@ class UserRegistrationForm(UserCreationForm):
         }
         help_text = {
             "username": _(
-                "Required field. No more than 150 characters. Only letters, numbers, and symbols @/./+/-/_."
+                "Required field. No more than 150 characters. "
+                "Only letters, numbers, and symbols @/./+/-/_."
             )
         }
 
@@ -140,6 +141,7 @@ class UserUpdateForm(ModelForm):
         }
         help_text = {
             "username": _(
-                "Required field. No more than 150 characters. Only letters, numbers, and symbols @/./+/-/_."
+                "Required field. No more than 150 characters. "
+                "Only letters, numbers, and symbols @/./+/-/_."
             )
         }

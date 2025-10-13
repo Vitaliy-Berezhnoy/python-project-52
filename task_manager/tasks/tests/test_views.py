@@ -38,12 +38,12 @@ class TasksViewsTest(TestCase):
         )
 
     def test_tasks_list_view_requires_login(self):
-        """Проверяет, что доступ к списку задач требует авторизации"""
+        """доступ к списку задач требует авторизации"""
         response = self.client.get(reverse("tasks:tasks"))
         self.assertEqual(response.status_code, 302)  # Редирект на логин
 
     def test_tasks_list_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может видеть список задач"""
+        """авторизованный пользователь может видеть список задач"""
         self.client.login(username="author", password=TEST_PASSWORD)
         response = self.client.get(reverse("tasks:tasks"))
         self.assertEqual(response.status_code, 200)
@@ -51,12 +51,12 @@ class TasksViewsTest(TestCase):
         self.assertContains(response, "Тестовая задача")
 
     def test_task_create_view_requires_login(self):
-        """Проверяет, что доступ к форме создания задачи требует авторизации"""
+        """доступ к форме создания задачи требует авторизации"""
         response = self.client.get(reverse("tasks:create"))
         self.assertEqual(response.status_code, 302)
 
     def test_task_create_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может получить форму создания задачи"""
+        """авторизованный пользователь может получить форму создания задачи"""
         self.client.login(username="author", password=TEST_PASSWORD)
         response = self.client.get(reverse("tasks:create"))
         self.assertEqual(response.status_code, 200)
@@ -84,12 +84,12 @@ class TasksViewsTest(TestCase):
         self.assertEqual(new_task.author, self.author)
 
     def test_task_detail_view_requires_login(self):
-        """Проверяет, что доступ к детальной странице задачи требует авторизации"""
+        """доступ к детальной странице задачи требует авторизации"""
         response = self.client.get(reverse("tasks:detail", args=[self.task.id]))
         self.assertEqual(response.status_code, 302)
 
     def test_task_detail_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может просматривать задачу"""
+        """авторизованный пользователь может просматривать задачу"""
         self.client.login(username="author", password=TEST_PASSWORD)
         response = self.client.get(reverse("tasks:detail", args=[self.task.id]))
         self.assertEqual(response.status_code, 200)
@@ -97,12 +97,12 @@ class TasksViewsTest(TestCase):
         self.assertContains(response, "Тестовая задача")
 
     def test_task_update_view_requires_login(self):
-        """Проверяет, что доступ к форме редактирования задачи требует авторизации"""
+        """доступ к форме редактирования задачи требует авторизации"""
         response = self.client.get(reverse("tasks:update", args=[self.task.id]))
         self.assertEqual(response.status_code, 302)
 
     def test_task_update_view_authenticated(self):
-        """Проверяет, что авторизованный пользователь может редактировать задачу"""
+        """авторизованный пользователь может редактировать задачу"""
         self.client.login(username="author", password=TEST_PASSWORD)
         response = self.client.get(reverse("tasks:update", args=[self.task.id]))
         self.assertEqual(response.status_code, 200)
@@ -131,19 +131,19 @@ class TasksViewsTest(TestCase):
         self.assertEqual(self.task.description, "Обновленное описание")
 
     def test_task_delete_view_requires_login(self):
-        """Проверяет, что доступ к форме удаления задачи требует авторизации"""
+        """доступ к форме удаления задачи требует авторизации"""
         response = self.client.get(reverse("tasks:delete", args=[self.task.id]))
         self.assertEqual(response.status_code, 302)
 
     def test_task_delete_view_authenticated_author(self):
-        """Проверяет, что автор задачи может получить форму удаления"""
+        """автор задачи может получить форму удаления"""
         self.client.login(username="author", password=TEST_PASSWORD)
         response = self.client.get(reverse("tasks:delete", args=[self.task.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tasks/delete.html")
 
     def test_task_delete_view_authenticated_non_author(self):
-        """Проверяет, что не-автор НЕ может получить форму удаления"""
+        """не-автор НЕ может получить форму удаления"""
         self.client.login(username="otheruser", password=TEST_PASSWORD)
         response = self.client.get(reverse("tasks:delete", args=[self.task.id]))
         self.assertEqual(
@@ -152,7 +152,7 @@ class TasksViewsTest(TestCase):
         self.assertRedirects(response, reverse("tasks:tasks"))
 
     def test_task_delete_post_authenticated_author(self):
-        """Проверяет, что автор может удалить задачу"""
+        """автор может удалить задачу"""
         self.client.login(username="author", password=TEST_PASSWORD)
 
         task_count_before = Task.objects.count()
@@ -165,7 +165,7 @@ class TasksViewsTest(TestCase):
         self.assertEqual(Task.objects.count(), task_count_before - 1)
 
     def test_task_delete_post_authenticated_non_author(self):
-        """Проверяет, что не-автор НЕ может удалить задачу"""
+        """не-автор НЕ может удалить задачу"""
         self.client.login(username="otheruser", password=TEST_PASSWORD)
 
         task_count_before = Task.objects.count()
@@ -197,7 +197,7 @@ class TaskPermissionTest(TestCase):
         )
 
     def test_only_author_can_delete_task(self):
-        """Проверяет, что только автор может удалить задачу"""
+        """только автор может удалить задачу"""
         # Автор может удалить
         self.client.login(username="author", password=TEST_PASSWORD)
         response = self.client.post(

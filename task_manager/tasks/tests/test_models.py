@@ -11,7 +11,7 @@ TEST_PASSWORD = "ValidPassword123!"
 
 class TaskModelTest(TestCase):
     def setUp(self):
-        """Подготовка тестовых данных - создаем пользователей, статус и задачу"""
+        """создаем пользователей, статус и задачу"""
         self.user = User.objects.create_user(
             username="author", password=TEST_PASSWORD
         )
@@ -28,7 +28,7 @@ class TaskModelTest(TestCase):
         }
 
     def test_create_task(self):
-        """Проверяет, что задача создается с правильными атрибутами"""
+        """задача создается с правильными атрибутами"""
         task = Task.objects.create(**self.task_data)
         self.assertEqual(task.name, "Тестовая задача")
         self.assertEqual(task.description, "Описание тестовой задачи")
@@ -38,17 +38,17 @@ class TaskModelTest(TestCase):
         self.assertIsNotNone(task.created_at)
 
     def test_task_string_representation(self):
-        """Проверяет, что строковое представление задачи возвращает её имя"""
+        """строковое представление задачи возвращает её имя"""
         task = Task.objects.create(**self.task_data)
         self.assertEqual(str(task), "Тестовая задача")
 
     def test_task_verbose_names(self):
-        """Проверяет, что verbose_name и verbose_name_plural настроены правильно"""
+        """verbose_name и verbose_name_plural настроены правильно"""
         self.assertEqual(Task._meta.verbose_name, _("Task"))
         self.assertEqual(Task._meta.verbose_name_plural, _("Tasks"))
 
     def test_task_table_name(self):
-        """Проверяет, что имя таблицы в базе данных установлено правильно"""
+        """имя таблицы в базе данных установлено правильно"""
         self.assertEqual(Task._meta.db_table, "tasks")
 
     def test_task_ordering(self):
@@ -65,7 +65,7 @@ class TaskModelTest(TestCase):
         self.assertEqual(all_tasks[1], task1)
 
     def test_task_without_executor(self):
-        """Проверяет, что задача может быть создана без исполнителя"""
+        """задача может быть создана без исполнителя"""
         task = Task.objects.create(
             name="Задача без исполнителя",
             status=self.status,
@@ -75,7 +75,7 @@ class TaskModelTest(TestCase):
         self.assertIsNone(task.executor)
 
     def test_task_required_fields(self):
-        """Проверяет, что обязательные поля действительно обязательны"""
+        """обязательные поля действительно обязательны"""
         with self.assertRaises(Exception):
             Task.objects.create()  # Без обязательных полей
 
@@ -93,7 +93,7 @@ class TaskModelTest(TestCase):
         self.assertEqual(task.executor.username, "executor")
 
     def test_task_author_protected_deletion(self):
-        """Проверяет, что автор не может быть удален если у него есть задачи"""
+        """автор не может быть удален если у него есть задачи"""
         Task.objects.create(**self.task_data)
 
         # Попытка удалить автора должна вызвать ProtectedError
@@ -101,7 +101,7 @@ class TaskModelTest(TestCase):
             self.user.delete()
 
     def test_task_status_protected_deletion(self):
-        """Проверяет, что статус не может быть удален если используется в задачах"""
+        """статус не может быть удален если используется в задачах"""
         Task.objects.create(**self.task_data)
 
         # Попытка удалить статус должна вызвать ProtectedError
