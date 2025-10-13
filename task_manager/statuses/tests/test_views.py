@@ -67,7 +67,7 @@ class StatusesViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)  # Остается на странице
 
     def test_status_update_view_authenticated(self):
-        """авторизованный пользователь может получить форму редактирования статуса"""
+        """авторизованный user может получить форму редактирования статуса"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         response = self.client.get(
             reverse("statuses:update", args=[self.status.id])
@@ -81,7 +81,7 @@ class StatusesViewsTest(TestCase):
         )  # Форма содержит текущее имя статуса
 
     def test_status_update_post_authenticated(self):
-        """авторизованный пользователь может обновить статус через POST-запрос"""
+        """авторизованный user может обновить статус через POST-запрос"""
         self.client.login(username="testuser", password=TEST_PASSWORD)
         form_data = {"name": "обновленный статус"}
 
