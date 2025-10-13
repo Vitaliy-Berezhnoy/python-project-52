@@ -9,7 +9,7 @@
     {% load django_bootstrap5 %}
     {% load i18n %}
     {% bootstrap_css %}
-    <!--{% bootstrap_javascript %} -->
+    {% bootstrap_javascript %}
 </head>
 <body class="d-flex flex-column min-vh-100">
     <!-- Навигационная панель -->
@@ -22,13 +22,11 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Левая часть меню -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'users' %}">{% trans "Users" %}</a>
                     </li>
-                </ul>
-
-                <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'statuses:statuses' %}">{% trans "Statuses" %}</a>
@@ -39,10 +37,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'labels:labels' %}">{% trans "Labels" %}</a>
                     </li>
-                    <li class="nav-item">
-                        <span class="nav-link text-dark">{% trans "Hello" %}, {{ user.username }}!</span>
+                    {% endif %}
+                </ul>
+
+                <!-- Правая часть меню -->
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item d-flex align-items-center">  <!-- выравнивание по центру -->
+                        <span class="nav-link text-dark py-0">{% trans "Hello" %}, {{ user.username }}!</span>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item d-flex align-items-center">  <!-- выравнивание по центру -->
                         <form method="post" action="{% url 'logout' %}" class="d-inline">
                             {% csrf_token %}
                             <button type="submit" class="nav-link btn btn-link border-0 p-0 ms-2">
@@ -51,12 +55,12 @@
                         </form>
                     </li>
                     {% else %}
-                    <li class="nav-item">
+                    <li class="nav-item d-flex align-items-center">  <!-- выравнивание по центру -->
                         <a class="nav-link" href="{% url 'login' %}">
                             <i class="bi bi-box-arrow-in-right"></i> {% trans "Login" %}
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item d-flex align-items-center">  <!-- выравнивание по центру -->
                         <a class="nav-link" href="{% url 'user_create' %}">
                             <i class="bi bi-person-plus"></i> {% trans "Registration" %}
                         </a>
@@ -69,19 +73,39 @@
 
     <!-- Основное содержимое -->
     <main class="container my-4 flex-grow-1">
+        <!-- БЛОК: сообщения -->
         {% if messages %}
+        <div class="mb-3">
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    <i class="bi
-                        {% if message.tags == 'success' %}bi-check-circle-fill
-                        {% elif message.tags == 'error' %}bi-exclamation-circle-fill
-                        {% elif message.tags == 'warning' %}bi-exclamation-triangle-fill
-                        {% else %}bi-info-circle-fill{% endif %}"></i>
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-circle"></i>
                     {{ message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
+                {% elif message.tags == 'warning' %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% elif message.tags == 'success' %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle"></i>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% else %}
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <i class="bi bi-info-circle"></i>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endif %}
             {% endfor %}
+        </div>
         {% endif %}
+        <!-- КОНЕЦ БЛОКА: сообщения -->
 
         {% block content %}
         {% endblock %}

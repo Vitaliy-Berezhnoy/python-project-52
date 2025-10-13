@@ -10,41 +10,46 @@
         <div class="card">
             <div class="card-header">
                 <h2 class="h4 mb-0 text-danger">
-                    <i class="bi bi-exclamation-triangle"></i> 
+                    <i class="bi bi-exclamation-triangle"></i>
                     {% trans "Delete Status" %}
                 </h2>
             </div>
 
             <div class="card-body">
+                <!-- БЛОК: предупреждение об удалении -->
                 <div class="alert alert-warning">
                     <i class="bi bi-exclamation-circle"></i>
                     {% trans "Are you sure you want to delete the status?" %}
                 </div>
 
+                <!-- БЛОК: информация о статусе -->
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">{{ status.name }}</h5>
                         <p class="card-text mb-1">
-                            <strong>{% trans "Created at" %}:</strong> 
+                            <strong>{% trans "Created at" %}:</strong>
                             {{ status.created_at|date:"d.m.Y H:i" }}
                         </p>
                         <p class="card-text mb-0">
-                            <strong>{% trans "Updated at" %}:</strong> 
+                            <strong>{% trans "Updated at" %}:</strong>
                             {{ status.updated_at|date:"d.m.Y H:i" }}
                         </p>
                     </div>
                 </div>
 
+                <!-- БЛОК: форма удаления -->
                 <form method="post" novalidate>
                     {% csrf_token %}
-                    
+
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <!-- КНОПКА: отмена -->
                         <a href="{% url 'statuses:statuses' %}" class="btn btn-secondary me-md-2">
-                            <i class="bi bi-arrow-left"></i> 
+                            <i class="bi bi-arrow-left"></i>
                             {% trans "Cancel" %}
                         </a>
+                        <!-- КНОПКА: подтверждение удаления -->
                         <button type="submit" class="btn btn-danger">
-                            <i class="bi bi-trash"></i> 
+                            <i class="bi bi-trash"></i>
                             {% trans "Yes, delete" %}
                         </button>
                     </div>
