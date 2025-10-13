@@ -7,17 +7,14 @@
 [![Actions Status](https://github.com/Vitaliy-Berezhnoy/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Vitaliy-Berezhnoy/python-project-52/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Vitaliy-Berezhnoy_python-project-52&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Vitaliy-Berezhnoy_python-project-52)
 
-## Live Demo
 
-[My project on Render](https://python-project-52-8e31.onrender.com)
+## 🚀 Live Demo
 
-## 🚀 Usage
-
-You can try the application right now by following the link: [Task Manager on Render](https://python-project-52-8e31.onrender.com)
+You can try the application right now by following the link: [My project on Render](https://python-project-52-8e31.onrender.com)
 
 **Demo account for login:**
 - **Username:** `demo`
-- **Password:** `demo`
+- **Password:** `ValidPassword123!`
 
 ## 🛠️ Technologies
 
