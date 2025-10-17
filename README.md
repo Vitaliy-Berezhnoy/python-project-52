@@ -8,7 +8,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Vitaliy-Berezhnoy_python-project-52&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Vitaliy-Berezhnoy_python-project-52)
 
 
-## 🚀 Live Demo
+##  Live Demo
 
 You can try the application right now by following the link: [My project on Render](https://python-project-52-8e31.onrender.com)
 

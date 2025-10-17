@@ -10,8 +10,8 @@ class UserRegistrationFormTest(TestCase):
             "username": "революционер",
             "first_name": "Анастас",
             "last_name": "Микоян",
-            "password1": "t3!",
-            "password2": "t3!",
+            "password1": "t3!",    # NOSONAR
+            "password2": "t3!",    # NOSONAR
         }
         form = UserRegistrationForm(data=form_data)
         self.assertTrue(form.is_valid())
@@ -21,8 +21,8 @@ class UserRegistrationFormTest(TestCase):
             "username": "революционер",
             "first_name": "Анастас",
             "last_name": "Микоян",
-            "password1": "12",
-            "password2": "12",
+            "password1": "12",    # NOSONAR
+            "password2": "12",    # NOSONAR
         }
         form = UserRegistrationForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -33,8 +33,8 @@ class UserRegistrationFormTest(TestCase):
             "username": "революционер",
             "first_name": "Анастас",
             "last_name": "Микоян",
-            "password1": "password123",
-            "password2": "different",
+            "password1": "password123",    # NOSONAR
+            "password2": "different",    # NOSONAR
         }
         form = UserRegistrationForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -46,8 +46,8 @@ class UserRegistrationFormTest(TestCase):
             "username": "актер",
             "first_name": "Фрунзик",
             "last_name": "Мкртчян",
-            "password1": "password123",
-            "password2": "password123",
+            "password1": "password123",    # NOSONAR
+            "password2": "password123",    # NOSONAR
         }
         form = UserRegistrationForm(data=form_data)
         self.assertFalse(form.is_valid())
