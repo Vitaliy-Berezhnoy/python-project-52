@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        version: "0.8.14"
+
+    - name: Install dependencies
+      run: |
+        uv sync
+
+    - name: Run migrations
+      run: |
+        uv run python manage.py migrate
+      env:
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+        SECRET_KEY: test-secret-key
+        DEBUG: False
+
+    - name: Run tests with coverage
+      run: |
+        uv run coverage run --source=task_manager manage.py test
+        uv run coverage xml
+      env:
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+        SECRET_KEY: test-secret-key
+        DEBUG: False
+
+    - name: Upload coverage to SonarCloud
+      if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
