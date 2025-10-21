@@ -71,3 +71,4 @@ jobs:
           -Dsonar.projectKey=Vitaliy-Berezhnoy_python-project-52
           -Dsonar.organization=vitaliy-berezhnoy
           -Dsonar.python.coverage.reportPaths=coverage.xml
+          -Dsonar.scm.disabled=true
