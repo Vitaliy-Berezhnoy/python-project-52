@@ -34,7 +34,7 @@ jobs:
         python-version: '3.12'
 
     - name: Install the latest version of uv
-      uses: astral-sh/setup-uv@v7
+      uses: astral-sh/setup-uv@d635b2ac45db8e2d62a9c6a41a3c8dd8e37562b8
       with:
         version: "0.8.14"
 
