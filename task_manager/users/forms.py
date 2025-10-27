@@ -12,7 +12,7 @@ class UserRegistrationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         # Режим редактирования
         if self.instance.pk:
-#            self.fields['username'].required = False
+        #   self.fields['username'].required = False
             self.fields['password1'].required = False
             self.fields['password2'].required = False
 
@@ -111,6 +111,3 @@ class UserRegistrationForm(UserCreationForm):
                 "Only letters, numbers, and symbols @/./+/-/_."
             )
         }
-
-
-
