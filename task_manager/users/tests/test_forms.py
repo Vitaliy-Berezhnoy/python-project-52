@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from task_manager.users.forms import UserRegistrationForm, UserUpdateForm
+from task_manager.users.forms import UserRegistrationForm
 from task_manager.users.models import User
 
 
@@ -54,7 +54,7 @@ class UserRegistrationFormTest(TestCase):
         self.assertIn("username", form.errors)
 
 
-class UserUpdateFormTest(TestCase):
+class UserUpdateTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser",
@@ -63,26 +63,26 @@ class UserUpdateFormTest(TestCase):
             last_name="Name",
         )
 
-    def test_valid_update_form(self):
+    def test_valid_update(self):
         form_data = {
             "username": "updateduser",
             "first_name": "Updated",
             "last_name": "Name",
         }
-        form = UserUpdateForm(instance=self.user, data=form_data)
+        form = UserRegistrationForm(instance=self.user, data=form_data)
         self.assertTrue(form.is_valid())
 
-    def test_update_form_has_no_password_field(self):
-        form = UserUpdateForm(instance=self.user)
+    def test_update_has_no_password_field(self):
+        form = UserRegistrationForm(instance=self.user)
         self.assertNotIn("password", form.fields)
 
-    def test_update_form_saves_correctly(self):
+    def test_update_saves_correctly(self):
         form_data = {
             "username": "updateduser",
             "first_name": "Updated",
             "last_name": "Name",
         }
-        form = UserUpdateForm(instance=self.user, data=form_data)
+        form = UserRegistrationForm(instance=self.user, data=form_data)
         self.assertTrue(form.is_valid())
         form.save()
         self.user.refresh_from_db()
